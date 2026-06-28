@@ -1,0 +1,22 @@
+{
+    "sourceFile": "src/main/java/com/example/demo/dto/UserResponse.java",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1782657997010,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1782658011626,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,26 @@\n package com.example.demo.dto;\r\n \r\n public class UserResponse {\r\n \r\n+    private Long id;\r\n+    private String name;\r\n+    private String email;\r\n+\r\n+    public UserResponse(Long id, String name, String email) {\r\n+        this.id = id;\r\n+        this.name = name;\r\n+        this.email = email;\r\n+    }\r\n+\r\n+    public Long getId() {\r\n+        return id;\r\n+    }\r\n+\r\n+    public String getName() {\r\n+        return name;\r\n+    }\r\n+\r\n+    public String getEmail() {\r\n+        return email;\r\n+    }\r\n }\r\n"
+                }
+            ],
+            "date": 1782657997010,
+            "name": "Commit-0",
+            "content": "package com.example.demo.dto;\r\n\r\npublic class UserResponse {\r\n\r\n}\r\n"
+        }
+    ]
+}

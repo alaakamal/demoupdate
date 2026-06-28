@@ -1,0 +1,22 @@
+{
+    "sourceFile": "src/main/java/com/example/demo/mapper/UserMapper.java",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1782658083740,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1782658286501,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,23 @@\n package com.example.demo.mapper;\r\n \r\n+import com.example.demo.dto.UserRequest;\r\n+import com.example.demo.dto.UserResponse;\r\n+import com.example.demo.entity.User;\r\n+\r\n public class UserMapper {\r\n \r\n+    public static User toEntity(UserRequest request) {\r\n+        return User.builder()\r\n+                .name(request.getName())\r\n+                .email(request.getEmail())\r\n+                .build();\r\n+    }\r\n+\r\n+    public static UserResponse toResponse(User user) {\r\n+        return new UserResponse(\r\n+                user.getId(),\r\n+                user.getName(),\r\n+                user.getEmail()\r\n+        );\r\n+    }\r\n }\r\n"
+                }
+            ],
+            "date": 1782658083740,
+            "name": "Commit-0",
+            "content": "package com.example.demo.mapper;\r\n\r\npublic class UserMapper {\r\n\r\n}\r\n"
+        }
+    ]
+}

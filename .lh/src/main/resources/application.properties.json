@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 1,
+            "activePatchIndex": 3,
             "patches": [
                 {
                     "date": 1782650936350,
@@ -12,6 +12,14 @@
                 {
                     "date": 1782651697856,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,4 +1,5 @@\n+server.port=8081\n spring.application.name=demo\n spring.datasource.url=jdbc:h2:mem:testdb\n spring.datasource.driver-class-name=org.h2.Driver\n spring.datasource.username=sa\n"
+                },
+                {
+                    "date": 1782659514953,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,5 +6,7 @@\n spring.datasource.password=\n \n spring.jpa.database-platform=org.hibernate.dialect.H2Dialect\n spring.jpa.hibernate.ddl-auto=update\n-spring.h2.console.enabled=true\n\\ No newline at end of file\n+spring.h2.console.enabled=true\n+management.endpoints.web.exposure.include=*\n+management.endpoint.health.show-details=always\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1782659583352,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,10 +3,9 @@\n spring.datasource.url=jdbc:h2:mem:testdb\n spring.datasource.driver-class-name=org.h2.Driver\n spring.datasource.username=sa\n spring.datasource.password=\n-\n+management.endpoints.web.exposure.include=*\n+management.endpoint.health.show-details=always\n spring.jpa.database-platform=org.hibernate.dialect.H2Dialect\n spring.jpa.hibernate.ddl-auto=update\n-spring.h2.console.enabled=true\n\\ No newline at end of file\n-management.endpoints.web.exposure.include=*\n-management.endpoint.health.show-details=always\n+spring.h2.console.enabled=true\n\\ No newline at end of file\n"
                 }
             ],
             "date": 1782650936350,

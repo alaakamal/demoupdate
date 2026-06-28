@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 2,
+            "activePatchIndex": 3,
             "patches": [
                 {
                     "date": 1782651510357,
@@ -16,6 +16,10 @@
                 {
                     "date": 1782652334296,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,8 +5,9 @@\n import org.springframework.web.bind.annotation.DeleteMapping;\r\n import org.springframework.web.bind.annotation.GetMapping;\r\n import org.springframework.web.bind.annotation.PathVariable;\r\n import org.springframework.web.bind.annotation.PostMapping;\r\n+import org.springframework.web.bind.annotation.PutMapping;\r\n import org.springframework.web.bind.annotation.RequestBody;\r\n import org.springframework.web.bind.annotation.RequestMapping;\r\n import org.springframework.web.bind.annotation.RestController;\r\n \r\n@@ -40,5 +41,10 @@\n     @DeleteMapping(\"/{id}\")\r\n     public void delete(@PathVariable Long id) {\r\n         userService.delete(id);\r\n     }\r\n+\r\n+    @PutMapping(\"/{id}\")\r\n+    public User update(@PathVariable Long id, @RequestBody User user) {\r\n+        return userService.update(id, user);\r\n+    }\r\n }\r\n"
+                },
+                {
+                    "date": 1782659002198,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -10,12 +10,14 @@\n import org.springframework.web.bind.annotation.RequestBody;\r\n import org.springframework.web.bind.annotation.RequestMapping;\r\n import org.springframework.web.bind.annotation.RestController;\r\n \r\n-import com.example.demo.entity.User;\r\n import com.example.demo.service.UserService;\r\n \r\n import lombok.RequiredArgsConstructor;\r\n+import com.example.demo.dto.UserRequest;\r\n+import com.example.demo.dto.UserResponse;\r\n+import jakarta.validation.Valid;\r\n \r\n @RestController\r\n @RequestMapping(\"/api/users\")\r\n @RequiredArgsConstructor\r\n@@ -23,28 +25,29 @@\n \r\n     private final UserService userService;\r\n \r\n     @PostMapping\r\n-    public User create(@RequestBody User user) {\r\n-        return userService.create(user);\r\n+    public UserResponse create(@Valid @RequestBody UserRequest request) {\r\n+        return userService.create(request);\r\n     }\r\n \r\n     @GetMapping\r\n-    public List<User> getAll() {\r\n+    public List<UserResponse> getAll() {\r\n         return userService.getAll();\r\n     }\r\n \r\n     @GetMapping(\"/{id}\")\r\n-    public User getById(@PathVariable Long id) {\r\n+    public UserResponse getById(@PathVariable Long id) {\r\n         return userService.getById(id);\r\n     }\r\n \r\n+    @PutMapping(\"/{id}\")\r\n+    public UserResponse update(@PathVariable Long id,\r\n+            @Valid @RequestBody UserRequest request) {\r\n+        return userService.update(id, request);\r\n+    }\r\n+\r\n     @DeleteMapping(\"/{id}\")\r\n     public void delete(@PathVariable Long id) {\r\n         userService.delete(id);\r\n     }\r\n-\r\n-    @PutMapping(\"/{id}\")\r\n-    public User update(@PathVariable Long id, @RequestBody User user) {\r\n-        return userService.update(id, user);\r\n-    }\r\n }\r\n"
                 }
             ],
             "date": 1782651510357,

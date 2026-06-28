@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 2,
+            "activePatchIndex": 4,
             "patches": [
                 {
                     "date": 1782651440752,
@@ -16,6 +16,14 @@
                 {
                     "date": 1782652334723,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -34,5 +34,16 @@\n     @Override\r\n     public void delete(Long id) {\r\n         userRepository.deleteById(id);\r\n     }\r\n+\r\n+    @Override\r\n+    public User update(Long id, User user) {\r\n+        User existing = userRepository.findById(id)\r\n+                .orElseThrow(() -> new RuntimeException(\"User not found\"));\r\n+\r\n+        existing.setName(user.getName());\r\n+        existing.setEmail(user.getEmail());\r\n+\r\n+        return userRepository.save(existing);\r\n+    }\r\n }\r\n"
+                },
+                {
+                    "date": 1782659002636,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,9 +3,12 @@\n import java.util.List;\r\n \r\n import org.springframework.stereotype.Service;\r\n \r\n+import com.example.demo.dto.UserRequest;\r\n+import com.example.demo.dto.UserResponse;\r\n import com.example.demo.entity.User;\r\n+import com.example.demo.mapper.UserMapper;\r\n import com.example.demo.repository.UserRepository;\r\n \r\n import lombok.RequiredArgsConstructor;\r\n \r\n@@ -19,17 +22,35 @@\n     public User create(User user) {\r\n         return userRepository.save(user);\r\n     }\r\n \r\n+    /* \r\n+@Override\r\n+public List<User> getAll() {\r\n+    return userRepository.findAll();\r\n+}\r\n+     */\r\n     @Override\r\n-    public List<User> getAll() {\r\n-        return userRepository.findAll();\r\n+    public List<UserResponse> getAll() {\r\n+        return userRepository.findAll()\r\n+                .stream()\r\n+                .map(UserMapper::toResponse)\r\n+                .toList();\r\n     }\r\n \r\n+    /* \r\n+@Override\r\n+public User getById(Long id) {\r\n+    return userRepository.findById(id)\r\n+            .orElseThrow(() -> new RuntimeException(\"User not found\"));\r\n+}\r\n+     */\r\n     @Override\r\n-    public User getById(Long id) {\r\n-        return userRepository.findById(id)\r\n+    public UserResponse getById(Long id) {\r\n+        User user = userRepository.findById(id)\r\n                 .orElseThrow(() -> new RuntimeException(\"User not found\"));\r\n+\r\n+        return UserMapper.toResponse(user);\r\n     }\r\n \r\n     @Override\r\n     public void delete(Long id) {\r\n@@ -45,5 +66,31 @@\n         existing.setEmail(user.getEmail());\r\n \r\n         return userRepository.save(existing);\r\n     }\r\n+\r\n+    @Override\r\n+    public UserResponse create(UserRequest request) {\r\n+\r\n+        userRepository.findByEmail(request.getEmail())\r\n+                .ifPresent(u -> {\r\n+                    throw new RuntimeException(\"Email already exists\");\r\n+                });\r\n+\r\n+        User user = UserMapper.toEntity(request);\r\n+        user.setId(null);\r\n+\r\n+        return UserMapper.toResponse(userRepository.save(user));\r\n+    }\r\n+\r\n+    @Override\r\n+    public UserResponse update(Long id, UserRequest request) {\r\n+\r\n+        User user = userRepository.findById(id)\r\n+                .orElseThrow(() -> new RuntimeException(\"User not found\"));\r\n+\r\n+        user.setName(request.getName());\r\n+        user.setEmail(request.getEmail());\r\n+\r\n+        return UserMapper.toResponse(userRepository.save(user));\r\n+    }\r\n }\r\n"
+                },
+                {
+                    "date": 1782659500911,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -10,9 +10,11 @@\n import com.example.demo.mapper.UserMapper;\r\n import com.example.demo.repository.UserRepository;\r\n \r\n import lombok.RequiredArgsConstructor;\r\n+import lombok.extern.slf4j.Slf4j;\r\n \r\n+@Slf4j\r\n @Service\r\n @RequiredArgsConstructor\r\n public class UserServiceImpl implements UserService {\r\n \r\n"
                 }
             ],
             "date": 1782651440752,

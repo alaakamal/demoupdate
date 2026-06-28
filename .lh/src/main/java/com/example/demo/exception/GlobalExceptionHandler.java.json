@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 1,
+            "activePatchIndex": 2,
             "patches": [
                 {
                     "date": 1782655079513,
@@ -12,6 +12,10 @@
                 {
                     "date": 1782655101216,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,18 @@\n package com.example.demo.exception;\r\n \r\n+import org.springframework.dao.DataIntegrityViolationException;\r\n+import org.springframework.web.bind.annotation.*;\r\n+\r\n+@RestControllerAdvice\r\n public class GlobalExceptionHandler {\r\n \r\n+    @ExceptionHandler(DataIntegrityViolationException.class)\r\n+    public String handleDuplicate(DataIntegrityViolationException ex) {\r\n+        return \"Duplicate data (email already exists)\";\r\n+    }\r\n+\r\n+    @ExceptionHandler(RuntimeException.class)\r\n+    public String handleRuntime(RuntimeException ex) {\r\n+        return ex.getMessage();\r\n+    }\r\n }\r\n"
+                },
+                {
+                    "date": 1782659501756,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,19 +1,37 @@\n package com.example.demo.exception;\r\n \r\n+import com.example.demo.api.ApiResponse;\r\n import org.springframework.dao.DataIntegrityViolationException;\r\n-import org.springframework.web.bind.annotation.ExceptionHandler;\r\n-import org.springframework.web.bind.annotation.RestControllerAdvice;\r\n+import org.springframework.http.HttpStatus;\r\n+import org.springframework.web.bind.annotation.*;\r\n \r\n @RestControllerAdvice\r\n public class GlobalExceptionHandler {\r\n \r\n+    @ExceptionHandler(RuntimeException.class)\r\n+    public ApiResponse<?> handleRuntime(RuntimeException ex) {\r\n+        return ApiResponse.builder()\r\n+                .success(false)\r\n+                .message(ex.getMessage())\r\n+                .status(HttpStatus.BAD_REQUEST.value())\r\n+                .build();\r\n+    }\r\n+\r\n     @ExceptionHandler(DataIntegrityViolationException.class)\r\n-    public String handleDuplicate(DataIntegrityViolationException ex) {\r\n-        return \"Duplicate data (email already exists)\";\r\n+    public ApiResponse<?> handleDuplicate(DataIntegrityViolationException ex) {\r\n+        return ApiResponse.builder()\r\n+                .success(false)\r\n+                .message(\"Email already exists\")\r\n+                .status(HttpStatus.CONFLICT.value())\r\n+                .build();\r\n     }\r\n \r\n-    @ExceptionHandler(RuntimeException.class)\r\n-    public String handleRuntime(RuntimeException ex) {\r\n-        return ex.getMessage();\r\n+    @ExceptionHandler(Exception.class)\r\n+    public ApiResponse<?> handleGeneral(Exception ex) {\r\n+        return ApiResponse.builder()\r\n+                .success(false)\r\n+                .message(\"Internal server error\")\r\n+                .status(HttpStatus.INTERNAL_SERVER_ERROR.value())\r\n+                .build();\r\n     }\r\n }\r\n"
                 }
             ],
             "date": 1782655079513,
