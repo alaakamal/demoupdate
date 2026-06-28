@@ -1,0 +1,22 @@
+{
+    "sourceFile": "src/main/java/com/example/demo/exception/GlobalExceptionHandler.java",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1782655079513,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1782655101216,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,18 @@\n package com.example.demo.exception;\r\n \r\n+import org.springframework.dao.DataIntegrityViolationException;\r\n+import org.springframework.web.bind.annotation.*;\r\n+\r\n+@RestControllerAdvice\r\n public class GlobalExceptionHandler {\r\n \r\n+    @ExceptionHandler(DataIntegrityViolationException.class)\r\n+    public String handleDuplicate(DataIntegrityViolationException ex) {\r\n+        return \"Duplicate data (email already exists)\";\r\n+    }\r\n+\r\n+    @ExceptionHandler(RuntimeException.class)\r\n+    public String handleRuntime(RuntimeException ex) {\r\n+        return ex.getMessage();\r\n+    }\r\n }\r\n"
+                }
+            ],
+            "date": 1782655079513,
+            "name": "Commit-0",
+            "content": "package com.example.demo.exception;\r\n\r\npublic class GlobalExceptionHandler {\r\n\r\n}\r\n"
+        }
+    ]
+}

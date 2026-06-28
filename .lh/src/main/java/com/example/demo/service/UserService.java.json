@@ -1,0 +1,26 @@
+{
+    "sourceFile": "src/main/java/com/example/demo/service/UserService.java",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 2,
+            "patches": [
+                {
+                    "date": 1782651387825,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1782651441236,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,16 @@\n package com.example.demo.service;\r\n \r\n-public class UserService {\r\n+import com.example.demo.entity.User;\r\n \r\n+import java.util.List;\r\n+\r\n+public interface UserService {\r\n+\r\n+    User create(User user);\r\n+\r\n+    List<User> getAll();\r\n+\r\n+    User getById(Long id);\r\n+\r\n+    void delete(Long id);\r\n }\r\n"
+                },
+                {
+                    "date": 1782652334722,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,5 +12,7 @@\n \r\n     User getById(Long id);\r\n \r\n     void delete(Long id);\r\n+\r\n+    User update(Long id, User user);\r\n }\r\n"
+                }
+            ],
+            "date": 1782651387825,
+            "name": "Commit-0",
+            "content": "package com.example.demo.service;\r\n\r\npublic class UserService {\r\n\r\n}\r\n"
+        }
+    ]
+}

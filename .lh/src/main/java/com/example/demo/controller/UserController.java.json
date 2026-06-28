@@ -1,0 +1,26 @@
+{
+    "sourceFile": "src/main/java/com/example/demo/controller/UserController.java",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 2,
+            "patches": [
+                {
+                    "date": 1782651510357,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1782651520320,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,36 @@\n package com.example.demo.controller;\r\n \r\n+import com.example.demo.entity.User;\r\n+import com.example.demo.service.UserService;\r\n+import lombok.RequiredArgsConstructor;\r\n+import org.springframework.web.bind.annotation.*;\r\n+\r\n+import java.util.List;\r\n+\r\n+@RestController\r\n+@RequestMapping(\"/api/users\")\r\n+@RequiredArgsConstructor\r\n public class UserController {\r\n \r\n+    private final UserService userService;\r\n+\r\n+    @PostMapping\r\n+    public User create(@RequestBody User user) {\r\n+        return userService.create(user);\r\n+    }\r\n+\r\n+    @GetMapping\r\n+    public List<User> getAll() {\r\n+        return userService.getAll();\r\n+    }\r\n+\r\n+    @GetMapping(\"/{id}\")\r\n+    public User getById(@PathVariable Long id) {\r\n+        return userService.getById(id);\r\n+    }\r\n+\r\n+    @DeleteMapping(\"/{id}\")\r\n+    public void delete(@PathVariable Long id) {\r\n+        userService.delete(id);\r\n+    }\r\n }\r\n"
+                },
+                {
+                    "date": 1782652334296,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,8 +5,9 @@\n import org.springframework.web.bind.annotation.DeleteMapping;\r\n import org.springframework.web.bind.annotation.GetMapping;\r\n import org.springframework.web.bind.annotation.PathVariable;\r\n import org.springframework.web.bind.annotation.PostMapping;\r\n+import org.springframework.web.bind.annotation.PutMapping;\r\n import org.springframework.web.bind.annotation.RequestBody;\r\n import org.springframework.web.bind.annotation.RequestMapping;\r\n import org.springframework.web.bind.annotation.RestController;\r\n \r\n@@ -40,5 +41,10 @@\n     @DeleteMapping(\"/{id}\")\r\n     public void delete(@PathVariable Long id) {\r\n         userService.delete(id);\r\n     }\r\n+\r\n+    @PutMapping(\"/{id}\")\r\n+    public User update(@PathVariable Long id, @RequestBody User user) {\r\n+        return userService.update(id, user);\r\n+    }\r\n }\r\n"
+                }
+            ],
+            "date": 1782651510357,
+            "name": "Commit-0",
+            "content": "package com.example.demo.controller;\r\n\r\npublic class UserController {\r\n\r\n}\r\n"
+        }
+    ]
+}

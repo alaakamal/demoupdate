@@ -1,0 +1,22 @@
+{
+    "sourceFile": "src/main/java/com/example/demo/entity/User.java",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1782651135263,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1782651160917,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,23 @@\n+package com.example.demo.entity;\r\n+\r\n+import jakarta.persistence.*;\r\n+import lombok.*;\r\n+\r\n+@Entity\r\n+@Table(name = \"users\")\r\n+@Data\r\n+@NoArgsConstructor\r\n+@AllArgsConstructor\r\n+@Builder\r\n+public class User {\r\n+\r\n+    @Id\r\n+    @GeneratedValue(strategy = GenerationType.IDENTITY)\r\n+    private Long id;\r\n+\r\n+    @Column(nullable = false)\r\n+    private String name;\r\n+\r\n+    @Column(unique = true, nullable = false)\r\n+    private String email;\r\n+}\r\n"
+                }
+            ],
+            "date": 1782651135262,
+            "name": "Commit-0",
+            "content": "package com.example.demo.entity;\r\n\r\npublic class User {\r\n\r\n}\r\n"
+        }
+    ]
+}

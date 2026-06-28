@@ -1,0 +1,22 @@
+{
+    "sourceFile": "src/main/resources/application.properties",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1782650936350,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1782651697856,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,4 +1,5 @@\n+server.port=8081\n spring.application.name=demo\n spring.datasource.url=jdbc:h2:mem:testdb\n spring.datasource.driver-class-name=org.h2.Driver\n spring.datasource.username=sa\n"
+                }
+            ],
+            "date": 1782650936350,
+            "name": "Commit-0",
+            "content": "spring.application.name=demo\nspring.datasource.url=jdbc:h2:mem:testdb\nspring.datasource.driver-class-name=org.h2.Driver\nspring.datasource.username=sa\nspring.datasource.password=\n\nspring.jpa.database-platform=org.hibernate.dialect.H2Dialect\nspring.jpa.hibernate.ddl-auto=update\nspring.h2.console.enabled=true"
+        }
+    ]
+}
