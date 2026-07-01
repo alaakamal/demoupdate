@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 2,
+            "activePatchIndex": 3,
             "patches": [
                 {
                     "date": 1782651205886,
@@ -16,6 +16,10 @@
                 {
                     "date": 1782651308638,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,11 @@\n package com.example.demo.repository;\r\n \r\n-public interface UserRepository {\r\n+import com.example.demo.entity.User;\r\n+import org.springframework.data.jpa.repository.JpaRepository;\r\n \r\n+import java.util.Optional;\r\n+\r\n+public interface UserRepository extends JpaRepository<User, Long> {\r\n+\r\n+    Optional<User> findByEmail(String email);\r\n }\r\n"
+                },
+                {
+                    "date": 1782884110613,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,11 +2,16 @@\n \r\n import java.util.Optional;\r\n \r\n import org.springframework.data.jpa.repository.JpaRepository;\r\n+import org.springframework.data.jpa.repository.Query;\r\n+import org.springframework.data.repository.query.Param;\r\n \r\n import com.example.demo.entity.User;\r\n \r\n public interface UserRepository extends JpaRepository<User, Long> {\r\n \r\n     Optional<User> findByEmail(String email);\r\n+\r\n+    @Query(value = \"SELECT * FROM users WHERE email = :email\", nativeQuery = true)\r\n+    Optional<User> findByEmailNative(@Param(\"email\") String email);\r\n }\r\n"
                 }
             ],
             "date": 1782651205886,
