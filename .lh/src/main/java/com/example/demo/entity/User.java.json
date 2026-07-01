@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 1,
+            "activePatchIndex": 2,
             "patches": [
                 {
                     "date": 1782651135263,
@@ -12,6 +12,10 @@
                 {
                     "date": 1782651160917,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,23 @@\n+package com.example.demo.entity;\r\n+\r\n+import jakarta.persistence.*;\r\n+import lombok.*;\r\n+\r\n+@Entity\r\n+@Table(name = \"users\")\r\n+@Data\r\n+@NoArgsConstructor\r\n+@AllArgsConstructor\r\n+@Builder\r\n+public class User {\r\n+\r\n+    @Id\r\n+    @GeneratedValue(strategy = GenerationType.IDENTITY)\r\n+    private Long id;\r\n+\r\n+    @Column(nullable = false)\r\n+    private String name;\r\n+\r\n+    @Column(unique = true, nullable = false)\r\n+    private String email;\r\n+}\r\n"
+                },
+                {
+                    "date": 1782879138779,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,16 @@\n package com.example.demo.entity;\r\n \r\n-import jakarta.persistence.*;\r\n-import lombok.*;\r\n+import jakarta.persistence.Column;\r\n+import jakarta.persistence.Entity;\r\n+import jakarta.persistence.GeneratedValue;\r\n+import jakarta.persistence.GenerationType;\r\n+import jakarta.persistence.Id;\r\n+import jakarta.persistence.Table;\r\n+import lombok.AllArgsConstructor;\r\n+import lombok.Builder;\r\n+import lombok.Data;\r\n+import lombok.NoArgsConstructor;\r\n \r\n @Entity\r\n @Table(name = \"users\")\r\n @Data\r\n@@ -19,10 +27,7 @@\n     private String name;\r\n \r\n     @Column(unique = true, nullable = false)\r\n     private String email;\r\n-}\r\n-package com.example.demo.entity;\r\n \r\n-public class User {\r\n-\r\n+    private String password;\r\n }\r\n"
                 }
             ],
             "date": 1782651135262,

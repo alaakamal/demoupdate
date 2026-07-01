@@ -1,0 +1,30 @@
+{
+    "sourceFile": "src/main/java/com/example/demo/service/AuthService.java",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 3,
+            "patches": [
+                {
+                    "date": 1782872729829,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1782872780746,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,8 @@\n package com.example.demo.service;\r\n \r\n-public class AuthService {\r\n+import com.example.demo.dto.*;\r\n \r\n+public interface AuthService {\r\n+\r\n+    AuthResponse login(LoginRequest request);\r\n }\r\n"
+                },
+                {
+                    "date": 1782874314429,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,10 @@\n package com.example.demo.service;\r\n \r\n-import com.example.demo.dto.AuthResponse;\r\n-import com.example.demo.dto.LoginRequest;\r\n+import com.example.demo.dto.*;\r\n \r\n public interface AuthService {\r\n \r\n     AuthResponse login(LoginRequest request);\r\n+\r\n+    AuthResponse refresh(String refreshToken); // ✅ new method\r\n }\r\n"
+                },
+                {
+                    "date": 1782878260795,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,5 +7,8 @@\n \r\n     AuthResponse login(LoginRequest request);\r\n \r\n     AuthResponse refresh(String refreshToken); // ✅ new method\r\n+\r\n+    void logout(String refreshToken); // ✅ ADD THIS\r\n+\r\n }\r\n"
+                }
+            ],
+            "date": 1782872729828,
+            "name": "Commit-0",
+            "content": "package com.example.demo.service;\r\n\r\npublic class AuthService {\r\n\r\n}\r\n"
+        }
+    ]
+}

@@ -1,0 +1,22 @@
+{
+    "sourceFile": "src/main/java/com/example/demo/security/JwtAuthenticationFilter.java",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1782873405440,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1782873422639,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,73 @@\n package com.example.demo.security;\r\n \r\n-public class JwtAuthenticationFilter {\r\n+import jakarta.servlet.FilterChain;\r\n+import jakarta.servlet.ServletException;\r\n+import jakarta.servlet.http.*;\r\n \r\n+import lombok.RequiredArgsConstructor;\r\n+import lombok.extern.slf4j.Slf4j;\r\n+\r\n+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;\r\n+import org.springframework.security.core.context.SecurityContextHolder;\r\n+import org.springframework.security.core.userdetails.UserDetails;\r\n+import org.springframework.security.core.userdetails.UserDetailsService;\r\n+import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;\r\n+import org.springframework.stereotype.Component;\r\n+import org.springframework.web.filter.OncePerRequestFilter;\r\n+\r\n+import java.io.IOException;\r\n+\r\n+@Slf4j\r\n+@Component\r\n+@RequiredArgsConstructor\r\n+public class JwtAuthenticationFilter extends OncePerRequestFilter {\r\n+\r\n+    private final JwtService jwtService;\r\n+    private final UserDetailsService userDetailsService;\r\n+\r\n+    @Override\r\n+    protected void doFilterInternal(HttpServletRequest request,\r\n+            HttpServletResponse response,\r\n+            FilterChain filterChain)\r\n+            throws ServletException, IOException {\r\n+\r\n+        final String authHeader = request.getHeader(\"Authorization\");\r\n+\r\n+        if (authHeader == null || !authHeader.startsWith(\"Bearer \")) {\r\n+            filterChain.doFilter(request, response);\r\n+            return;\r\n+        }\r\n+\r\n+        String token = authHeader.substring(7);\r\n+\r\n+        try {\r\n+            String email = jwtService.extractEmail(token);\r\n+\r\n+            // ✅ check if not already authenticated\r\n+            if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {\r\n+\r\n+                UserDetails userDetails = userDetailsService.loadUserByUsername(email);\r\n+\r\n+                UsernamePasswordAuthenticationToken authToken\r\n+                        = new UsernamePasswordAuthenticationToken(\r\n+                                userDetails,\r\n+                                null,\r\n+                                userDetails.getAuthorities()\r\n+                        );\r\n+\r\n+                authToken.setDetails(\r\n+                        new WebAuthenticationDetailsSource().buildDetails(request)\r\n+                );\r\n+\r\n+                SecurityContextHolder.getContext().setAuthentication(authToken);\r\n+\r\n+                log.info(\"User authenticated: {}\", email);\r\n+            }\r\n+\r\n+        } catch (Exception e) {\r\n+            log.error(\"JWT validation failed: {}\", e.getMessage());\r\n+        }\r\n+\r\n+        filterChain.doFilter(request, response);\r\n+    }\r\n }\r\n"
+                }
+            ],
+            "date": 1782873405440,
+            "name": "Commit-0",
+            "content": "package com.example.demo.security;\r\n\r\npublic class JwtAuthenticationFilter {\r\n\r\n}\r\n"
+        }
+    ]
+}

@@ -1,0 +1,26 @@
+{
+    "sourceFile": "src/main/java/com/example/demo/repository/RefreshTokenRepository.java",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 2,
+            "patches": [
+                {
+                    "date": 1782873679317,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1782873687444,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,12 @@\n package com.example.demo.repository;\r\n \r\n-public interface RefreshTokenRepository {\r\n+import com.example.demo.entity.RefreshToken;\r\n+import org.springframework.data.jpa.repository.JpaRepository;\r\n \r\n+import java.util.Optional;\r\n+\r\n+public interface RefreshTokenRepository\r\n+        extends JpaRepository<RefreshToken, Long> {\r\n+\r\n+    Optional<RefreshToken> findByToken(String token);\r\n }\r\n"
+                },
+                {
+                    "date": 1782878260847,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,5 +9,7 @@\n public interface RefreshTokenRepository\r\n         extends JpaRepository<RefreshToken, Long> {\r\n \r\n     Optional<RefreshToken> findByToken(String token);\r\n+\r\n+    void deleteByToken(String token);\r\n }\r\n"
+                }
+            ],
+            "date": 1782873679317,
+            "name": "Commit-0",
+            "content": "package com.example.demo.repository;\r\n\r\npublic interface RefreshTokenRepository {\r\n\r\n}\r\n"
+        }
+    ]
+}
