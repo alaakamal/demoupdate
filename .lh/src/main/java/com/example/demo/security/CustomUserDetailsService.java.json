@@ -1,0 +1,22 @@
+{
+    "sourceFile": "src/main/java/com/example/demo/security/CustomUserDetailsService.java",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1782872658683,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1782872671996,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,27 @@\n package com.example.demo.security;\r\n \r\n-public class CustomUserDetailsService {\r\n+import com.example.demo.repository.UserRepository;\r\n+import lombok.RequiredArgsConstructor;\r\n+import org.springframework.security.core.userdetails.*;\r\n+import org.springframework.stereotype.Service;\r\n \r\n+@Service\r\n+@RequiredArgsConstructor\r\n+public class CustomUserDetailsService implements UserDetailsService {\r\n+\r\n+    private final UserRepository userRepository;\r\n+\r\n+    @Override\r\n+    public UserDetails loadUserByUsername(String email)\r\n+            throws UsernameNotFoundException {\r\n+\r\n+        var user = userRepository.findByEmail(email)\r\n+                .orElseThrow(() -> new UsernameNotFoundException(\"User not found\"));\r\n+\r\n+        return org.springframework.security.core.userdetails.User\r\n+                .withUsername(user.getEmail())\r\n+                .password(user.getPassword())\r\n+                .authorities(\"USER\")\r\n+                .build();\r\n+    }\r\n }\r\n"
+                }
+            ],
+            "date": 1782872658683,
+            "name": "Commit-0",
+            "content": "package com.example.demo.security;\r\n\r\npublic class CustomUserDetailsService {\r\n\r\n}\r\n"
+        }
+    ]
+}

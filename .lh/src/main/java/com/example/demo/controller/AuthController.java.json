@@ -1,0 +1,30 @@
+{
+    "sourceFile": "src/main/java/com/example/demo/controller/AuthController.java",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 3,
+            "patches": [
+                {
+                    "date": 1782872808174,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1782872816109,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,19 @@\n package com.example.demo.controller;\r\n \r\n+import com.example.demo.dto.*;\r\n+import com.example.demo.service.AuthService;\r\n+import lombok.RequiredArgsConstructor;\r\n+import org.springframework.web.bind.annotation.*;\r\n+\r\n+@RestController\r\n+@RequestMapping(\"/api/auth\")\r\n+@RequiredArgsConstructor\r\n public class AuthController {\r\n \r\n+    private final AuthService authService;\r\n+\r\n+    @PostMapping(\"/login\")\r\n+    public AuthResponse login(@RequestBody LoginRequest request) {\r\n+        return authService.login(request);\r\n+    }\r\n }\r\n"
+                },
+                {
+                    "date": 1782874315605,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,25 +1,29 @@\n package com.example.demo.controller;\r\n \r\n-import org.springframework.web.bind.annotation.PostMapping;\r\n-import org.springframework.web.bind.annotation.RequestBody;\r\n-import org.springframework.web.bind.annotation.RequestMapping;\r\n-import org.springframework.web.bind.annotation.RestController;\r\n-\r\n import com.example.demo.dto.AuthResponse;\r\n import com.example.demo.dto.LoginRequest;\r\n import com.example.demo.service.AuthService;\r\n \r\n import lombok.RequiredArgsConstructor;\r\n \r\n+import org.springframework.web.bind.annotation.*;\r\n+\r\n @RestController\r\n @RequestMapping(\"/api/auth\")\r\n @RequiredArgsConstructor\r\n public class AuthController {\r\n \r\n     private final AuthService authService;\r\n \r\n+    // ✅ LOGIN\r\n     @PostMapping(\"/login\")\r\n     public AuthResponse login(@RequestBody LoginRequest request) {\r\n         return authService.login(request);\r\n     }\r\n+\r\n+    // ✅ ✅ REFRESH ENDPOINT (WHAT YOU ASKED FOR)\r\n+    @PostMapping(\"/refresh\")\r\n+    public AuthResponse refresh(@RequestParam String refreshToken) {\r\n+        return authService.refresh(refreshToken);\r\n+    }\r\n }\r\n"
+                },
+                {
+                    "date": 1782876573325,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,8 @@\n package com.example.demo.controller;\r\n \r\n+import java.util.Map;\r\n+\r\n import org.springframework.web.bind.annotation.PostMapping;\r\n import org.springframework.web.bind.annotation.RequestBody;\r\n import org.springframework.web.bind.annotation.RequestMapping;\r\n import org.springframework.web.bind.annotation.RequestParam;\r\n@@ -26,8 +28,8 @@\n     }\r\n \r\n     // ✅ ✅ REFRESH ENDPOINT (WHAT YOU ASKED FOR)\r\n     @PostMapping(\"/refresh\")\r\n-    public AuthResponse refresh(@RequestParam String refreshToken) {\r\n-        return authService.refresh(refreshToken);\r\n+    public AuthResponse refresh(@RequestBody Map<String, String> body) {\r\n+        return authService.refresh(body.get(\"refreshToken\"));\r\n     }\r\n }\r\n"
+                }
+            ],
+            "date": 1782872808174,
+            "name": "Commit-0",
+            "content": "package com.example.demo.controller;\r\n\r\npublic class AuthController {\r\n\r\n}\r\n"
+        }
+    ]
+}

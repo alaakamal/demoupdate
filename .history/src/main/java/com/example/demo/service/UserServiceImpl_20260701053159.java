@@ -20,9 +20,9 @@ import lombok.extern.slf4j.Slf4j;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder; // ✅ Inject encoder
+    private final PasswordEncoder passwordEncoder;
 
-    // ✅ CREATE (REGISTER USER)
+    // ✅ CREATE
     @Override
     public UserResponse create(UserRequest request) {
 
@@ -37,7 +37,7 @@ public class UserServiceImpl implements UserService {
         User user = UserMapper.toEntity(request);
         user.setId(null);
 
-        // ✅ ✅ IMPORTANT: Encode password (fix for Bad credentials)
+        // ✅ SECURITY FIX (IMPORTANT)
         user.setPassword(passwordEncoder.encode(request.getPassword()));
 
         return UserMapper.toResponse(userRepository.save(user));

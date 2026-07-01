@@ -1,0 +1,30 @@
+{
+    "sourceFile": "src/main/java/com/example/demo/service/RefreshTokenService.java",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 3,
+            "patches": [
+                {
+                    "date": 1782873792649,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1782873804884,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,41 @@\n package com.example.demo.service;\r\n \r\n+import com.example.demo.entity.RefreshToken;\r\n+import com.example.demo.repository.RefreshTokenRepository;\r\n+\r\n+import lombok.RequiredArgsConstructor;\r\n+import org.springframework.stereotype.Service;\r\n+\r\n+import java.time.Instant;\r\n+import java.util.UUID;\r\n+\r\n+@Service\r\n+@RequiredArgsConstructor\r\n public class RefreshTokenService {\r\n \r\n+    private final RefreshTokenRepository repository;\r\n+\r\n+    public RefreshToken createToken(String email) {\r\n+\r\n+        RefreshToken token = RefreshToken.builder()\r\n+                .token(UUID.randomUUID().toString())\r\n+                .email(email)\r\n+                .expiryDate(Instant.now().plusSeconds(7 * 24 * 60 * 60)) // 7 days\r\n+                .build();\r\n+\r\n+        return repository.save(token);\r\n+    }\r\n+\r\n+    public RefreshToken validate(String token) {\r\n+\r\n+        RefreshToken refreshToken = repository.findByToken(token)\r\n+                .orElseThrow(() -> new RuntimeException(\"Invalid refresh token\"));\r\n+\r\n+        if (refreshToken.getExpiryDate().isBefore(Instant.now())) {\r\n+            repository.delete(refreshToken);\r\n+            throw new RuntimeException(\"Refresh token expired\");\r\n+        }\r\n+\r\n+        return refreshToken;\r\n+    }\r\n }\r\n"
+                },
+                {
+                    "date": 1782878260643,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -38,5 +38,9 @@\n         }\r\n \r\n         return refreshToken;\r\n     }\r\n+\r\n+    public void delete(String token) {\r\n+        repository.deleteByToken(token);\r\n+    }\r\n }\r\n"
+                },
+                {
+                    "date": 1782880258259,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,8 +7,9 @@\n \r\n import com.example.demo.entity.RefreshToken;\r\n import com.example.demo.repository.RefreshTokenRepository;\r\n \r\n+import jakarta.transaction.Transactional;\r\n import lombok.RequiredArgsConstructor;\r\n \r\n @Service\r\n @RequiredArgsConstructor\r\n@@ -39,8 +40,9 @@\n \r\n         return refreshToken;\r\n     }\r\n \r\n+    @Transactional\r\n     public void delete(String token) {\r\n         repository.deleteByToken(token);\r\n     }\r\n }\r\n"
+                }
+            ],
+            "date": 1782873792649,
+            "name": "Commit-0",
+            "content": "package com.example.demo.service;\r\n\r\npublic class RefreshTokenService {\r\n\r\n}\r\n"
+        }
+    ]
+}
