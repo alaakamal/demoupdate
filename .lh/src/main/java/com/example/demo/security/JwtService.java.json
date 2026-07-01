@@ -1,0 +1,26 @@
+{
+    "sourceFile": "src/main/java/com/example/demo/security/JwtService.java",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 2,
+            "patches": [
+                {
+                    "date": 1782872616682,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1782872659623,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,37 @@\n package com.example.demo.security;\r\n \r\n+import io.jsonwebtoken.*;\r\n+import io.jsonwebtoken.security.Keys;\r\n+import org.springframework.stereotype.Service;\r\n+\r\n+import java.security.Key;\r\n+import java.util.Date;\r\n+\r\n+@Service\r\n public class JwtService {\r\n \r\n+    private final String SECRET = \"my-secret-key-my-secret-key-123456\";\r\n+\r\n+    private Key getKey() {\r\n+        return Keys.hmacShaKeyFor(SECRET.getBytes());\r\n+    }\r\n+\r\n+    public String generateToken(String email) {\r\n+\r\n+        return Jwts.builder()\r\n+                .subject(email)\r\n+                .issuedAt(new Date())\r\n+                .expiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60)) // 1 hour\r\n+                .signWith(getKey())\r\n+                .compact();\r\n+    }\r\n+\r\n+    public String extractEmail(String token) {\r\n+        return Jwts.parser()\r\n+                .verifyWith(getKey())\r\n+                .build()\r\n+                .parseSignedClaims(token)\r\n+                .getPayload()\r\n+                .getSubject();\r\n+    }\r\n }\r\n"
+                },
+                {
+                    "date": 1782873311993,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,19 +1,19 @@\n package com.example.demo.security;\r\n \r\n-import io.jsonwebtoken.*;\r\n+import io.jsonwebtoken.Jwts;\r\n import io.jsonwebtoken.security.Keys;\r\n import org.springframework.stereotype.Service;\r\n \r\n-import java.security.Key;\r\n+import javax.crypto.SecretKey;\r\n import java.util.Date;\r\n \r\n @Service\r\n public class JwtService {\r\n \r\n     private final String SECRET = \"my-secret-key-my-secret-key-123456\";\r\n \r\n-    private Key getKey() {\r\n+    private SecretKey getKey() {\r\n         return Keys.hmacShaKeyFor(SECRET.getBytes());\r\n     }\r\n \r\n     public String generateToken(String email) {\r\n@@ -27,9 +27,9 @@\n     }\r\n \r\n     public String extractEmail(String token) {\r\n         return Jwts.parser()\r\n-                .verifyWith(getKey())\r\n+                .verifyWith(getKey()) // ✅ now works\r\n                 .build()\r\n                 .parseSignedClaims(token)\r\n                 .getPayload()\r\n                 .getSubject();\r\n"
+                }
+            ],
+            "date": 1782872616682,
+            "name": "Commit-0",
+            "content": "package com.example.demo.security;\r\n\r\npublic class JwtService {\r\n\r\n}\r\n"
+        }
+    ]
+}

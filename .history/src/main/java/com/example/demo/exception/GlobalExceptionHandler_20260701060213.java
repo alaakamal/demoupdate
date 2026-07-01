@@ -28,16 +28,16 @@ public class GlobalExceptionHandler {
                 .build();
     }
 
-    // ✅ ✅ DEBUG VERSION
     @ExceptionHandler(Exception.class)
     public ApiResponse<?> handleGeneral(Exception ex) {
 
-        ex.printStackTrace(); // ✅ IMPORTANT (prints real error in console)
+        ex.printStackTrace(); // ✅ IMPORTANT (see real error in console)
 
         return ApiResponse.builder()
                 .success(false)
-                .message(ex.getMessage()) // ✅ show real error message
+                .message(ex.getMessage()) // ✅ show real error
                 .status(HttpStatus.INTERNAL_SERVER_ERROR.value())
                 .build();
     }
+
 }
