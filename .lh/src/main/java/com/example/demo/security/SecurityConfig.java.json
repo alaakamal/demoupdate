@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 6,
+            "activePatchIndex": 7,
             "patches": [
                 {
                     "date": 1782872695679,
@@ -32,6 +32,10 @@
                 {
                     "date": 1782876110732,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,9 +3,9 @@\n import lombok.RequiredArgsConstructor;\r\n \r\n import org.springframework.context.annotation.Bean;\r\n import org.springframework.context.annotation.Configuration;\r\n-\r\n+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;\r\n import org.springframework.http.HttpMethod;\r\n \r\n import org.springframework.security.authentication.AuthenticationManager;\r\n import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;\r\n@@ -51,9 +51,9 @@\n                 // ✅ Everything else secured\r\n                 .anyRequest().authenticated()\r\n                 )\r\n                 // ✅ JWT filter\r\n-                .addFilterBefore(jwtAuthFilter, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter.class);\r\n+                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);\r\n \r\n         return http.build();\r\n     }\r\n }\r\n"
+                },
+                {
+                    "date": 1782977530969,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,23 +1,19 @@\n package com.example.demo.security;\r\n \r\n-import lombok.RequiredArgsConstructor;\r\n-\r\n import org.springframework.context.annotation.Bean;\r\n import org.springframework.context.annotation.Configuration;\r\n-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;\r\n import org.springframework.http.HttpMethod;\r\n-\r\n import org.springframework.security.authentication.AuthenticationManager;\r\n import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;\r\n-\r\n import org.springframework.security.config.annotation.web.builders.HttpSecurity;\r\n import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;\r\n import org.springframework.security.crypto.password.PasswordEncoder;\r\n-\r\n import org.springframework.security.web.SecurityFilterChain;\r\n import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;\r\n \r\n+import lombok.RequiredArgsConstructor;\r\n+\r\n @Configuration\r\n @RequiredArgsConstructor\r\n public class SecurityConfig {\r\n \r\n"
                 }
             ],
             "date": 1782872695678,
